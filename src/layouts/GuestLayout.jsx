@@ -14,8 +14,7 @@ export default function GuestLayout() {
         <div className="p-10 w-full">
           <Outlet />
         </div>
-
       </main>
     </>
-  )
+  );
 }
