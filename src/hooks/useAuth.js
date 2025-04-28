@@ -58,22 +58,45 @@ export const useAuth = ({ middleware, url }) => {
 
   const logout = async () => {
     try {
+      await AxiosClient.post(
+        "/auth/logout",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("AUTH_TOKEN")}`,
+          },
+        }
+      ).catch(() => {}); // Ignoramos errores aquí
+
       localStorage.removeItem("AUTH_TOKEN");
       await mutate(undefined);
+
+      // Aseguramos que después de logout vaya a login
+      navigate("/auth/login");
     } catch (error) {
-      console.log(error);
+      console.error("Error durante logout:", error);
     }
   };
 
   useEffect(() => {
+    // Prevenir redirecciones si todavía estamos cargando
+    if (!user && !error) return;
+
     if (middleware === "guest" && url && user) {
       navigate(url);
     }
+
     if (middleware === "auth" && error) {
-      navigate("/auth/login");
+      // Solo redirigir si existe un token pero es inválido
+      // o si no estamos ya en la página de login
+      if (
+        localStorage.getItem("AUTH_TOKEN") ||
+        !window.location.pathname.includes("/auth/login")
+      ) {
+        navigate("/auth/login");
+      }
     }
-    console.log(user);
-  }, [user, error]);
+  }, [user, error, navigate, middleware, url]);
 
   return {
     register,
