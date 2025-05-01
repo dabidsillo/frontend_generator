@@ -6,8 +6,13 @@ export default function AppLayout() {
   const { user, error } = useAuth({ middleware: "auth" });
 
   return (
-    <div>
-      <Navigation />
-    </div>
+    <>
+      <div>
+        <Navigation />
+      </div>
+      <main>
+        <Outlet />
+      </main>
+    </>
   );
 }

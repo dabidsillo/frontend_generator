@@ -55,7 +55,7 @@ export default function Login() {
           />
           {errors &&
             Object.entries(errors)
-              .filter(([key]) => key === "password") // Filtra solo errores de "email"
+              .filter(([key]) => key === "password") // Filtra solo errores de "password"
               .map(([key, msg], index) => (
                 <ValidationError key={index}>{msg}</ValidationError>
               ))}

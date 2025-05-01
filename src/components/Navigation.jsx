@@ -17,11 +17,11 @@ export default function Navigation() {
               <span className="font-bold">Generator</span>
             </h1>
             <NavItem href="/" active={pathname === "/"}>
-              Dashboard
+              Mis salas
             </NavItem>
-            {/* <NavItem href="/about" active={pathname === "/about"}>
-              Sobre nosotros
-            </NavItem> */}
+            <NavItem href="/invitations" active={pathname === "/invitations"}>
+              Mis invitaciones
+            </NavItem>
           </div>
           <div className="py-2">
             <button
